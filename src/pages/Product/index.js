@@ -28,7 +28,7 @@ export default function Product() {
     }
 
     useEffect(() => {
-        const socket = socketio('ws://localhost:3333', {
+        const socket = socketio(process.env.REACT_APP_API_URL.replace(/^http/, 'ws'), {
             query: {
                 // pathname,
                 type: 'client'
