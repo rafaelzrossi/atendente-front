@@ -26,16 +26,17 @@ const Mouse = forwardRef((props, ref) => {
         <div id='virtualMouse'
         style={
             {
-                width: 10, 
-                height: 10, 
+                width: 20, 
+                height: 20, 
                 position: 'absolute', 
                 zIndex: 100, 
                 left: position.x, 
                 top: position.y, 
-                backgroundColor: 'black',
+                backgroundColor: 'rgba(255,0,0,.2)',
+                transform: 'rotate(-90deg)',
             }
         }>
-            
+            <MdNearMe />
         </div>
     </>)
 });
