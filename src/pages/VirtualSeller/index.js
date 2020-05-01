@@ -105,7 +105,7 @@ export default function VirtualSeller() {
             <div>
                 <h1>Clients</h1>
                 {clients.map((c, k) => 
-                    <span key={k} onClick={() => attach(c.id)} >
+                    <span key={k} onClick={() => attach(c.id)} style={{display: 'block', cursor: 'pointer'}}>
                         {c.name}
                     </span>
                 )}
