@@ -48,7 +48,9 @@ export default function Client() {
         
         if(isClient){
 
-            name.current = prompt("Nome?", name.current);
+            while (!name.current) {
+                name.current = prompt("Nome?");
+            }
 
             const socket = socketio(process.env.REACT_APP_API_URL.replace(/^http/, 'ws'), {
                 query: {
@@ -81,9 +83,9 @@ export default function Client() {
                 
                 const keepAlive = debounce(()=>{
                     socket.emit('addClient');
-                }, 5000);
+                }, 6000);
 
-                console.log('Emit keepAlive');
+                // console.log('Emit keepAlive');
                 socket.emit('keepAlive', target);
 
                 socket.on('keepAlive', () => {
@@ -101,7 +103,6 @@ export default function Client() {
                     const {x, y} = mouseRef.current.getPosition();
                     const elements = document.elementsFromPoint(x+1, y+1);
                     const element = elements[2];
-                    // console.log(elements, element, 2);
                     if(element)
                         element.click();
                 });
@@ -123,8 +124,7 @@ export default function Client() {
             });
 
         }
-
-        
+   
     // eslint-disable-next-line
     }, []);
 
@@ -133,6 +133,7 @@ export default function Client() {
             <div id='mouseContainer'>
             {useMouse && <Mouse ref={mouseRef}/>}
             </div>
+            <div id='blinkContainer'></div>
             <BrowserRouter>
                 <Switch>
                     <Route path='/product/:name' component={Product} />

@@ -42,9 +42,10 @@ export default function Blink({left=0, top=0}) {
             height: radius,
             border: '5px groove rgba(0,0,255, 0.3)',
             position: 'absolute',
-            left: left - (radius/2),
-            top: top - (radius/2),
+            left: left - (radius/2) - 5,
+            top: top - (radius/2) - 5,
             zIndex: 100,
+            pointerEvents: 'none'
         }}>
             
         </div>

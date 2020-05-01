@@ -1,9 +1,10 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, } from 'react';
 import ReactDOM from 'react-dom';
 import socketio from 'socket.io-client';
 
 import IFrame from '../../components/iFrame';
 import Mouse from '../../components/VirtualMouse';
+import Blink from './Blink';
 import debounce from '../../utils/debounce';
 
 export default function VirtualSeller() {
@@ -14,6 +15,7 @@ export default function VirtualSeller() {
 
     const client_ref = useRef();
     const mouseRef = useRef();
+    const blinkRef = useRef();
 
     function handleMouse(event) {
         const coordinates = {
@@ -22,7 +24,9 @@ export default function VirtualSeller() {
         }
         if(socket){
             socket.emit('mouseMove', {coordinates, target});
-            
+            if(blinkRef.current){
+                blinkRef.current.setPosition(coordinates);
+            }
         }
     }
     function handleMouseClick(event) {
@@ -33,13 +37,20 @@ export default function VirtualSeller() {
     const _handle = debounce(handleMouse, .5);
 
     const onKeyPress = (event) => {
-        if(socket)
-            socket.emit('keyPress',  {key: event.key, target});
+
+        if(socket){
+            const key = event.key;
+            socket.emit('keyPress',  {key, target});
+            if(key==='b' && blinkRef.current){
+                blinkRef.current.blink(b => !b);
+            }
+        }
     }
 
     const handleClient = (doc=document) => {
         client_ref.current = doc;
-        return ReactDOM.render(<Mouse ref={mouseRef}/>, doc.getElementById('mouseContainer'));
+        ReactDOM.render(<Mouse ref={mouseRef}/>, doc.getElementById('mouseContainer'));
+        ReactDOM.render(<Blink ref={blinkRef}/>, doc.getElementById('blinkContainer'));
     }
 
     function attach(id) {
@@ -120,4 +131,10 @@ export default function VirtualSeller() {
             </div>
         }
     </>)
+}
+
+function Bink2({x=0, y=0, show}) {
+    
+
+
 }
