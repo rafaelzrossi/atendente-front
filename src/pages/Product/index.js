@@ -36,7 +36,7 @@ export default function Product() {
             location.current(pathname);
         }
         
-    }, [pathname, location.current])
+    }, [pathname])
 
     useEffect(() => {
         
@@ -87,7 +87,7 @@ export default function Product() {
                         break;
                     case 's':
                         const {x, y} = mouseRef.current.getPosition();
-                        window.scrollTo(x, y-50);
+                        window.scrollTo(x, y - window.innerHeight/2);
                         break;
                     default:
                         break;
@@ -95,7 +95,8 @@ export default function Product() {
             });
 
         });
-    }, [])
+    // eslint-disable-next-line
+    }, []);
 
     return (
         <div ref={divRef}>
