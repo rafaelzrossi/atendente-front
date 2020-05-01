@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, memo} from 'react';
 
-function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path=''}) {
+function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path='', frameSize={width: 500, height: 500}}) {
     const iframeRef = useRef();
 
     useEffect(() => {
@@ -43,7 +43,9 @@ function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path=''}) {
     }, [path, listener, onClick, onKeyPress, insideRef]);
 
     return (
-        <iframe src={path} title="myFrame" width="500" height="500" ref={iframeRef} />
+        <div style={{width: '100vw', height: '100vh'}}>
+        <iframe src={path} title="myFrame" width={frameSize.width} height={frameSize.height} ref={iframeRef} />
+        </div>
     )
 }
 

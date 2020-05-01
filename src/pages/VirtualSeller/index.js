@@ -12,6 +12,7 @@ export default function VirtualSeller() {
     const [target, setTarget] = useState('');
     const [clientPath, setClientPath] = useState('');
     const [clients, setClients] = useState([]);
+    const [frameSize, setFrameSize] = useState({width: '100%', height: '100%'});
 
     const client_ref = useRef();
     const mouseRef = useRef();
@@ -59,8 +60,6 @@ export default function VirtualSeller() {
     }
 
     useEffect(() => {
-        // const _target = prompt('Client id', '');
-        // setTarget(_target);
 
         const _socket = socketio(process.env.REACT_APP_API_URL.replace(/^http/, 'ws'), {query: {type: 'Vendendor'}});
 
@@ -112,14 +111,14 @@ export default function VirtualSeller() {
         setSocket(_socket);
 
         return () => {
-            setTarget('');
             setSocket(undefined);
         }
+    // eslint-disable-next-line
     }, []);
 
     return (<>
         {target ? 
-            <IFrame path={clientPath} listener={_handle} onClick={handleMouseClick} onKeyPress={onKeyPress} insideRef={handleClient}/>
+            <IFrame path={clientPath} listener={_handle} onClick={handleMouseClick} onKeyPress={onKeyPress} insideRef={handleClient} frameSize={frameSize}/>
             :
             <div>
                 <h1>Clients</h1>
@@ -131,10 +130,4 @@ export default function VirtualSeller() {
             </div>
         }
     </>)
-}
-
-function Bink2({x=0, y=0, show}) {
-    
-
-
 }

@@ -17,7 +17,6 @@ export default function Client() {
     const mouseRef = useRef();
     const divRef = useRef();
     const name = useRef();
-    const timer = useRef();
     const location = useRef();
 
     function useQuery() {
