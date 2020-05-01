@@ -10,6 +10,7 @@ export default function VirtualSeller() {
     const [socket, setSocket] = useState(undefined);
     const [target, setTarget] = useState('');
     const [clientPath, setClientPath] = useState('');
+    const [clients, setClients] = useState([]);
 
     const client_ref = useRef();
     const mouseRef = useRef();
@@ -41,12 +42,27 @@ export default function VirtualSeller() {
         return ReactDOM.render(<Mouse ref={mouseRef}/>, doc.getElementById('mouseContainer'));
     }
 
+    function attach(id) {
+        setTarget(id);
+        socket.emit('attach', id);
+    }
+
     useEffect(() => {
-        const _target = prompt('Client id', '');
-        setTarget(_target);
+        // const _target = prompt('Client id', '');
+        // setTarget(_target);
 
         const _socket = socketio(process.env.REACT_APP_API_URL.replace(/^http/, 'ws'), {query: {type: 'Vendendor'}});
-        _socket.emit('attach', _target);
+
+        // _socket.emit('attach', _target);
+
+        _socket.emit('getClients');
+
+        _socket.on('getClients', clients =>{
+            // console.log(clients);
+            if(!target){
+                setClients(clients);
+            }
+        })
     
         _socket.on('connected', id => console.log('Virtual id', id));
 
@@ -68,7 +84,9 @@ export default function VirtualSeller() {
         _socket.on('setPath', (path) =>{
             console.log(path);
             if(path){
-                setClientPath(path);
+                const _path = new URL(path, process.env.REACT_APP_URL);
+                _path.searchParams.set('isClient', 'false')
+                setClientPath(_path);
             }
         })
 
@@ -81,6 +99,17 @@ export default function VirtualSeller() {
     }, []);
 
     return (<>
-        {socket && <IFrame path={clientPath} listener={_handle} onClick={handleMouseClick} onKeyPress={onKeyPress} insideRef={handleClient}/>}
+        {target ? 
+            <IFrame path={clientPath} listener={_handle} onClick={handleMouseClick} onKeyPress={onKeyPress} insideRef={handleClient}/>
+            :
+            <div>
+                <h1>Clients</h1>
+                {clients.map((c, k) => 
+                    <span key={k} onClick={() => attach(c.id)} >
+                        {c.name}
+                    </span>
+                )}
+            </div>
+        }
     </>)
 }
