@@ -32,11 +32,10 @@ const Mouse = forwardRef((props, ref) => {
                 zIndex: 100, 
                 left: position.x, 
                 top: position.y, 
-                backgroundColor: 'rgba(255,0,0,.2)',
-                transform: 'rotate(-90deg)',
+                backgroundColor: 'none',
             }
         }>
-            <MdNearMe />
+            <MdNearMe style={{fontSize: '20px', transform: 'rotate(-90deg)', padding: 0}} />
         </div>
     </>)
 });

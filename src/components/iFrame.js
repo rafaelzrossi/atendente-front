@@ -1,32 +1,40 @@
-import React, {useRef, useEffect, useCallback, memo} from 'react';
+import React, {useRef, useEffect, memo} from 'react';
 
-function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}}) {
+function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path=''}) {
     const iframeRef = useRef();
 
-    const addEventListener = useCallback(
-        () => {
-            setTimeout(() => {
-                try{
-                    iframeRef.current.contentWindow.document.body.addEventListener('mousemove', listener);
-                    iframeRef.current.contentWindow.document.body.addEventListener('click', onClick, false);
-                    iframeRef.current.contentWindow.document.body.addEventListener('keypress', onKeyPress, false);
-
-                    insideRef(iframeRef.current.contentWindow.document);
-
-                }catch{
-                    
-                }
-            }, 1000);
-        },
-        [listener, onClick, onKeyPress, insideRef]
-    )
-
     useEffect(() => {
-        addEventListener();
-    }, [addEventListener]);
+        const keep_listener = listener;
+        const keep_onClick = onClick;
+        const keep_onKeyPress = onKeyPress;
+
+        const time = setTimeout(() => {
+            try{
+                
+                iframeRef.current.contentWindow.document.body.addEventListener('mousemove', keep_listener, false);
+                iframeRef.current.contentWindow.document.body.addEventListener('click', keep_onClick, false);
+                iframeRef.current.contentWindow.document.body.addEventListener('keypress', keep_onKeyPress, false);
+
+                insideRef(iframeRef.current.contentWindow.document);
+
+            }catch{
+                
+            }
+        }, 1000);
+
+        return () => {
+            clearTimeout(time);
+            try{
+                iframeRef.current.contentWindow.document.body.removeEventListener('mousemove', keep_listener, false);
+                iframeRef.current.contentWindow.document.body.removeEventListener('click', keep_onClick, false);
+                iframeRef.current.contentWindow.document.body.removeEventListener('keypress', keep_onKeyPress, false);
+            }catch {}
+        }
+
+    }, [path]);
 
     return (
-        <iframe src={`/product/prod`} title="myFrame" width="500" height="500" ref={iframeRef} />
+        <iframe src={path} title="myFrame" width="500" height="500" ref={iframeRef} />
     )
 }
 

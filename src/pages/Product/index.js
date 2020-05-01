@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import socketio from 'socket.io-client';
 
 import Mouse from '../../components/VirtualMouse';
@@ -8,7 +8,7 @@ import debounce from '../../utils/debounce';
 
 export default function Product() {
     const { name } = useParams();
-    // const { pathname } = useLocation();
+    const { pathname } = useLocation();
 
     const [clicks, setClicks] = useState(0);
     const [useMouse, setUseMouse] = useState(false);
@@ -16,6 +16,8 @@ export default function Product() {
 
     const mouseRef = useRef();
     const divRef = useRef();
+
+    const location = useRef();
 
     const handleMounseMove = (socket, target) => event => {
         const coordinates = {
@@ -28,6 +30,16 @@ export default function Product() {
     }
 
     useEffect(() => {
+        
+        if(typeof location.current === 'function'){
+            //console.log(pathname);
+            location.current(pathname);
+        }
+        
+    }, [pathname, location.current])
+
+    useEffect(() => {
+        
         const socket = socketio(process.env.REACT_APP_API_URL.replace(/^http/, 'ws'), {
             query: {
                 // pathname,
@@ -42,8 +54,13 @@ export default function Product() {
         socket.on('attach', target => {
             console.log('attached', target);
             
+            socket.emit('setPath', {target, pathname});
+            location.current = (path) => {
+                socket.emit('setPath', {target, pathname: path});
+            };
+
             setUseMouse(true);
-            const mouseMove = debounce(handleMounseMove(socket, target), 3);
+            const mouseMove = debounce(handleMounseMove(socket, target), .6);
             document.body.onmousemove = mouseMove;
             document.body.onclick = (event) => {
                 if(event.isTrusted)
@@ -56,7 +73,9 @@ export default function Product() {
     
             socket.on('mouseClick', () => {
                 const {x, y} = mouseRef.current.getPosition();
-                const element = document.elementsFromPoint(x, y)[1];
+                const elements = document.elementsFromPoint(x+1, y+1);
+                const element = elements[2];
+                // console.log(elements, element, 2);
                 if(element)
                     element.click();
             });
@@ -83,6 +102,7 @@ export default function Product() {
             <div id='mouseContainer'>
             {useMouse && <Mouse ref={mouseRef}/>}
             </div>
+            <Link to='/product/Outro'>Next</Link>
             <h1 onClick={(e)=>{setClicks(c => c + 1)}}>{name}</h1>
             <h2>{clicks}</h2>
             {

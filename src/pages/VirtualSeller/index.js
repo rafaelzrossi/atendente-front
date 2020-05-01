@@ -9,6 +9,7 @@ import debounce from '../../utils/debounce';
 export default function VirtualSeller() {
     const [socket, setSocket] = useState(undefined);
     const [target, setTarget] = useState('');
+    const [clientPath, setClientPath] = useState('');
 
     const client_ref = useRef();
     const mouseRef = useRef();
@@ -28,7 +29,7 @@ export default function VirtualSeller() {
             socket.emit('mouseClick', target);
     }
  
-    const _handle = debounce(handleMouse, 5);
+    const _handle = debounce(handleMouse, .5);
 
     const onKeyPress = (event) => {
         if(socket)
@@ -36,10 +37,6 @@ export default function VirtualSeller() {
     }
 
     const handleClient = (doc=document) => {
-        // const v_mouse = doc.getElementById('virtualMouse');
-        // console.log(doc.getElementById);
-        // console.log(doc.body);
-        // console.log(doc.getElementById('mouseContainer'));
         client_ref.current = doc;
         return ReactDOM.render(<Mouse ref={mouseRef}/>, doc.getElementById('mouseContainer'));
     }
@@ -62,9 +59,17 @@ export default function VirtualSeller() {
 
         _socket.on('mouseClick', () =>{
             const {x, y} = mouseRef.current.getPosition();
-            const elem = client_ref.current.elementsFromPoint(x, y)[1];
-            if(elem)
-                elem.click();
+            const elements = client_ref.current.elementsFromPoint(x+1, y+1);
+            const element = elements[2]
+            // console.log(elements, element, 2);
+            if(element)
+                element.click();
+        })
+        _socket.on('setPath', (path) =>{
+            console.log(path);
+            if(path){
+                setClientPath(path);
+            }
         })
 
         setSocket(_socket);
@@ -76,6 +81,6 @@ export default function VirtualSeller() {
     }, []);
 
     return (<>
-        {socket && <IFrame listener={_handle} onClick={handleMouseClick} onKeyPress={onKeyPress} insideRef={handleClient}/>}
+        {socket && <IFrame path={clientPath} listener={_handle} onClick={handleMouseClick} onKeyPress={onKeyPress} insideRef={handleClient}/>}
     </>)
 }
