@@ -66,6 +66,14 @@ export default function VirtualSeller() {
     
         _socket.on('connected', id => console.log('Virtual id', id));
 
+        const keepAlive = debounce(() => {
+            setTarget(undefined);
+        }, 5000);
+
+        _socket.on('keepAlive', (from) =>{
+            keepAlive();
+            _socket.emit('keepAlive', from);
+        });
         _socket.on('mouseMove', coord =>{
             if(client_ref.current){
                 // const elem = client_ref.current.elementsFromPoint(coord.x, coord.y);

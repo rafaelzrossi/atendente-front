@@ -83,10 +83,14 @@ export default function Client() {
                     socket.emit('addClient');
                 }, 5000);
 
-                
+                console.log('Emit keepAlive');
+                socket.emit('keepAlive', target);
+
                 socket.on('keepAlive', () => {
                     keepAlive();
-                    socket.emit('keepAlive', target);
+                    setTimeout(()=>{
+                        socket.emit('keepAlive', target);
+                    }, 4000);
                 })
 
                 socket.on('mouseMove', params => {
