@@ -109,7 +109,7 @@ export default function Client() {
                             mouseRef.current.blink(b => !b);
                             break;
                         case 's':
-                            const {x, y} = mouseRef.current.getPosition();
+                            const {x, y} = mouseRef.current.getPosition();          
                             window.scrollTo(x, y - window.innerHeight/2);
                             break;
                         default:
@@ -125,7 +125,7 @@ export default function Client() {
     }, []);
 
     return (
-        <div>
+        <>
             <div id='mouseContainer'>
             {useMouse && <Mouse ref={mouseRef}/>}
             </div>
@@ -135,6 +135,6 @@ export default function Client() {
                     <Route path='/product/:name' component={Product} />
                 </Switch>
             </BrowserRouter>
-        </div>
+        </>
     )
 }
