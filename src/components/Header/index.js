@@ -26,7 +26,8 @@ const styles = {
     color: '#333',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: '60px'
   },
   title: {
     textAlign: 'center',
