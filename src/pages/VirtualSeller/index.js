@@ -12,7 +12,7 @@ export default function VirtualSeller() {
     const [target, setTarget] = useState('');
     const [clientPath, setClientPath] = useState('');
     const [clients, setClients] = useState([]);
-    const [frameSize, setFrameSize] = useState({width: '100%', height: '100%'});
+    const [frameSize, setFrameSize] = useState();
 
     const client_ref = useRef();
     const mouseRef = useRef();
@@ -100,18 +100,22 @@ export default function VirtualSeller() {
                 element.click();
         })
         _socket.on('setPath', (path) =>{
-            console.log(path);
+            //console.log(path);
             if(path){
                 const _path = new URL(path, process.env.REACT_APP_URL);
                 _path.searchParams.set('isClient', 'false')
                 setClientPath(_path);
             }
         })
+        _socket.on('setWindow', (size) =>{
+            setFrameSize(size);
+        })
 
         setSocket(_socket);
 
         return () => {
             setSocket(undefined);
+            setFrameSize(undefined);
         }
     // eslint-disable-next-line
     }, []);

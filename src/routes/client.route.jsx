@@ -69,6 +69,17 @@ export default function Client() {
                 location.current = (path) => {
                     socket.emit('setPath', {target, pathname: path});
                 };
+
+                socket.emit('setWindow', {target, width: window.innerWidth, height: window.innerHeight});
+                // document.body.addEventListener('resize', event => console.log(event))
+                window.onresize = () => {
+                    socket.emit('setWindow', {target, width: window.innerWidth, height: window.innerHeight});
+                };
+
+                socket.emit('setPath', {target, pathname});
+                location.current = (path) => {
+                    socket.emit('setPath', {target, pathname: path});
+                };
     
                 setUseMouse(true);
                 const mouseMove = debounce(handleMounseMove(socket, target), .6);
