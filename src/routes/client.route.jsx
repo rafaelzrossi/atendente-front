@@ -3,6 +3,7 @@ import { useLocation, BrowserRouter, Switch, Route } from 'react-router-dom';
 import socketio from 'socket.io-client';
 
 import Mouse from '../components/VirtualMouse';
+import KeepMousePosition from '../components/KeepMousePosition';
 
 import Product from '../pages/Product';
 import Shop from '../pages/Shop';
@@ -16,6 +17,7 @@ export default function Client() {
     const [useMouse, setUseMouse] = useState(false);
 
     const mouseRef = useRef();
+    const myMouseRef = useRef();
     const name = useRef();
     const location = useRef();
 
@@ -31,6 +33,14 @@ export default function Client() {
         if(socket){
             socket.emit('mouseMove', {coordinates, target});
         }
+    }
+
+    function myMouse(event) {
+        const coordinates = {
+            x: event.pageX,
+            y: event.pageY, 
+        }
+        myMouseRef.current.setPosition(coordinates);
     }
 
     useEffect(() => {
@@ -83,14 +93,17 @@ export default function Client() {
     
                 setUseMouse(true);
                 const mouseMove = debounce(handleMounseMove(socket, target), .6);
-                document.body.onmousemove = mouseMove;
+                document.body.onmousemove = undefined;
+                document.body.addEventListener('mousemove', mouseMove);
+                document.body.addEventListener('mousemove', myMouse);
                 document.body.onclick = (event) => {
                     if(event.isTrusted)
-                        socket.emit('mouseClick', target);
+                        socket.emit('mouseClick', {target, coordinates: myMouseRef.current.getPosition()});
                 };
                 
                 const keepAlive = debounce(()=>{
                     socket.emit('addClient');
+                    setUseMouse(false);
                 }, 6000);
 
                 // console.log('Emit keepAlive');
@@ -107,8 +120,8 @@ export default function Client() {
                     mouseRef.current.setPosition(params);
                 });
         
-                socket.on('mouseClick', () => {
-                    const {x, y} = mouseRef.current.getPosition();
+                socket.on('mouseClick', ({x, y}) => {
+                    // const {x, y} = mouseRef.current.getPosition();
                     const elements = document.elementsFromPoint(x+1, y+1);
                     // console.log(elements)
                     const element = elements[3];
@@ -138,7 +151,8 @@ export default function Client() {
     }, []);
 
     return (
-        <>
+        <> 
+            <KeepMousePosition ref={myMouseRef} />
             <div id='mouseContainer'>
             {useMouse && <Mouse ref={mouseRef}/>}
             </div>

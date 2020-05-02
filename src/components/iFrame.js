@@ -1,15 +1,14 @@
 import React, {useRef, useEffect, memo} from 'react';
 
-function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path='', frameSize}) {
+function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path='', frameSize, myMouse}) {
     const iframeRef = useRef();
 
     useEffect(() => {
         const keep_listener = listener;
         const keep_onClick = onClick;
         const keep_onKeyPress = onKeyPress;
-        const keep_scroll = (event) => {
-            console.log(event);
-        };
+        const keep_myMouse = myMouse;
+
 
         let ref;
 
@@ -19,9 +18,9 @@ function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path='', frame
                 ref = iframeRef.current;
                 
                 ref.contentWindow.document.body.addEventListener('mousemove', keep_listener, false);
+                ref.contentWindow.document.body.addEventListener('mousemove', keep_myMouse, false);
                 ref.contentWindow.document.body.addEventListener('click', keep_onClick, false);
                 ref.contentWindow.document.body.addEventListener('keypress', keep_onKeyPress, false);
-                ref.contentWindow.document.body.addEventListener('scroll', keep_scroll, false);
 
                 insideRef(ref.contentWindow.document);
 
@@ -34,9 +33,9 @@ function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path='', frame
             clearTimeout(time);
             try{
                 ref.contentWindow.document.body.removeEventListener('mousemove', keep_listener, false);
+                ref.contentWindow.document.body.removeEventListener('mousemove', keep_myMouse, false);
                 ref.contentWindow.document.body.removeEventListener('click', keep_onClick, false);
                 ref.contentWindow.document.body.removeEventListener('keypress', keep_onKeyPress, false);
-                ref.contentWindow.document.body.removeEventListener('scroll', keep_scroll, false);
             }catch {}
         }
 

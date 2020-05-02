@@ -4,6 +4,7 @@ import socketio from 'socket.io-client';
 
 import IFrame from '../../components/iFrame';
 import Mouse from '../../components/VirtualMouse';
+import KeepMousePosition from '../../components/KeepMousePosition';
 import Blink from './Blink';
 import debounce from '../../utils/debounce';
 
@@ -17,6 +18,7 @@ export default function VirtualSeller() {
     const client_ref = useRef();
     const mouseRef = useRef();
     const blinkRef = useRef();
+    const myMouseRef = useRef();
 
     function handleMouse(event) {
         const coordinates = {
@@ -25,14 +27,25 @@ export default function VirtualSeller() {
         }
         if(socket){
             socket.emit('mouseMove', {coordinates, target});
-            if(blinkRef.current){
-                blinkRef.current.setPosition(coordinates);
-            }
+            // if(blinkRef.current){
+            //     blinkRef.current.setPosition(coordinates);
+            // }
         }
     }
+
+    function myMouse(event) {
+        const coordinates = {
+            x: event.pageX,
+            y: event.pageY, 
+        }
+        myMouseRef.current.setPosition(coordinates);
+        blinkRef.current.setPosition(coordinates);
+    }
+
     function handleMouseClick(event) {
-        if(socket && event.isTrusted)
-            socket.emit('mouseClick', target);
+        if(socket && event.isTrusted){
+            socket.emit('mouseClick', {target, coordinates: myMouseRef.current.getPosition()});
+        }
     }
  
     const _handle = debounce(handleMouse, .5);
@@ -91,8 +104,8 @@ export default function VirtualSeller() {
             }
         });
 
-        _socket.on('mouseClick', () =>{
-            const {x, y} = mouseRef.current.getPosition();
+        _socket.on('mouseClick', ({x, y}) =>{
+            // const {x, y} = mouseRef.current.getPosition();
             const elements = client_ref.current.elementsFromPoint(x+1, y+1);
             const element = elements[3]
             // console.log(elements, element, 2);
@@ -121,8 +134,19 @@ export default function VirtualSeller() {
     }, []);
 
     return (<>
-        {target ? 
-            <IFrame path={clientPath} listener={_handle} onClick={handleMouseClick} onKeyPress={onKeyPress} insideRef={handleClient} frameSize={frameSize}/>
+        {target ?
+            <> 
+                <KeepMousePosition ref={myMouseRef} />
+                <IFrame
+                    path={clientPath}
+                    listener={_handle}
+                    onClick={handleMouseClick}
+                    onKeyPress={onKeyPress}
+                    insideRef={handleClient}
+                    frameSize={frameSize}
+                    myMouse={myMouse}
+                />
+            </>
             :
             <div>
                 <h1>Clients</h1>
