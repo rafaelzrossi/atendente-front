@@ -41,10 +41,10 @@ export default function VirtualSeller() {
 
         if(socket){
             const key = event.key;
-            socket.emit('keyPress',  {key, target});
-            if(key==='b' && blinkRef.current){
+            if(key==='b'){
                 blinkRef.current.blink(b => !b);
             }
+            socket.emit('keyPress',  {key, target});
         }
     }
 
@@ -94,7 +94,7 @@ export default function VirtualSeller() {
         _socket.on('mouseClick', () =>{
             const {x, y} = mouseRef.current.getPosition();
             const elements = client_ref.current.elementsFromPoint(x+1, y+1);
-            const element = elements[2]
+            const element = elements[3]
             // console.log(elements, element, 2);
             if(element)
                 element.click();

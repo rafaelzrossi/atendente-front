@@ -35,7 +35,17 @@ const Mouse = forwardRef((props, ref) => {
                 backgroundColor: 'none',
             }
         }>
-            <MdNearMe style={{fontSize: '20px', transform: 'rotate(-90deg)', padding: 0}} />
+            <MdNearMe 
+                style={{
+                    width: '100%', 
+                    height: '100%',
+                    fontSize: '25px',
+                    transform: 'rotate(-90deg)', 
+                    padding: 0,
+                    }} 
+                viewBox='0 4 20 20'
+
+            />
         </div>
     </>)
 });

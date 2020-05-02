@@ -44,7 +44,7 @@ function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path='', frame
 
     return (
         <div style={{width: '100vw', height: '100vh'}}>
-        <iframe src={path} title="myFrame" width={frameSize.width} height={frameSize.height} ref={iframeRef} />
+        <iframe src={path} title="myFrame" width={frameSize.width} height={frameSize.height} ref={iframeRef} frameBorder='0'/>
         </div>
     )
 }

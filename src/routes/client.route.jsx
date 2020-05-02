@@ -15,7 +15,6 @@ export default function Client() {
     const [useMouse, setUseMouse] = useState(false);
 
     const mouseRef = useRef();
-    const divRef = useRef();
     const name = useRef();
     const location = useRef();
 
@@ -36,7 +35,6 @@ export default function Client() {
     useEffect(() => {
         
         if(typeof location.current === 'function'){
-            //console.log(pathname);
             location.current(pathname);
         }
         
@@ -78,7 +76,6 @@ export default function Client() {
                     if(event.isTrusted)
                         socket.emit('mouseClick', target);
                 };
-    
                 
                 const keepAlive = debounce(()=>{
                     socket.emit('addClient');
@@ -101,7 +98,7 @@ export default function Client() {
                 socket.on('mouseClick', () => {
                     const {x, y} = mouseRef.current.getPosition();
                     const elements = document.elementsFromPoint(x+1, y+1);
-                    const element = elements[2];
+                    const element = elements[3];
                     if(element)
                         element.click();
                 });
@@ -128,7 +125,7 @@ export default function Client() {
     }, []);
 
     return (
-        <div ref={divRef}>
+        <div>
             <div id='mouseContainer'>
             {useMouse && <Mouse ref={mouseRef}/>}
             </div>
