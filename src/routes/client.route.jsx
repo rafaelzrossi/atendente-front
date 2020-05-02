@@ -5,6 +5,7 @@ import socketio from 'socket.io-client';
 import Mouse from '../components/VirtualMouse';
 
 import Product from '../pages/Product';
+import Shop from '../pages/Shop';
 
 import debounce from '../utils/debounce';
 
@@ -98,6 +99,7 @@ export default function Client() {
                 socket.on('mouseClick', () => {
                     const {x, y} = mouseRef.current.getPosition();
                     const elements = document.elementsFromPoint(x+1, y+1);
+                    // console.log(elements)
                     const element = elements[3];
                     if(element)
                         element.click();
@@ -132,6 +134,7 @@ export default function Client() {
             <div id='blinkContainer'></div>
             <BrowserRouter>
                 <Switch>
+                    <Route path='/shop' component={Shop} />
                     <Route path='/product/:name' component={Product} />
                 </Switch>
             </BrowserRouter>

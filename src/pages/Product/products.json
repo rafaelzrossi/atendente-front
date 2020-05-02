@@ -1,5 +1,17 @@
 [
     {
+        "name": "sapato",
+        "img1": "https://static.wixstatic.com/media/3c76e2_bf235c38610f4d2a905db71095b351cf~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_bf235c38610f4d2a905db71095b351cf~mv2.webp",
+        "img2": "https://static.wixstatic.com/media/3c76e2_f2d88894bda246979ba21e699878a3fa~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_f2d88894bda246979ba21e699878a3fa~mv2.webp",
+        "price": "85"
+    },
+    {
+        "name": "baton",
+        "img1": "https://static.wixstatic.com/media/3c76e2_07655ae4c328480483afe8f1d58a683a~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_07655ae4c328480483afe8f1d58a683a~mv2.webp",
+        "img2": "https://static.wixstatic.com/media/3c76e2_c00eb7bd3c954d559bb4dc56a7bcca13~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_c00eb7bd3c954d559bb4dc56a7bcca13~mv2.webp",
+        "price": "20"
+    },
+    {
         "name": "relogio",
         "img1": "https://static.wixstatic.com/media/3c76e2_8891bbe3372a428aac976ac59aa0ac74~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_8891bbe3372a428aac976ac59aa0ac74~mv2.webp",
         "img2": "https://static.wixstatic.com/media/3c76e2_8afdb3a3b2e34ab79edb19c5d6107488~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_8afdb3a3b2e34ab79edb19c5d6107488~mv2.webp",
@@ -10,6 +22,53 @@
         "img1": "https://static.wixstatic.com/media/3c76e2_c5331f937348492a97df87b0a3b34ea4~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_c5331f937348492a97df87b0a3b34ea4~mv2.webp",
         "img2": "https://static.wixstatic.com/media/3c76e2_2549a2b408fd44058871ff519aa5df40~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_2549a2b408fd44058871ff519aa5df40~mv2.webp",
         "price": "10"
+    },
+    {
+        "name": "sabonete",
+        "img1": "https://static.wixstatic.com/media/3c76e2_5062e9cc9b3f45dd84ec9bc9dcedde63~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_5062e9cc9b3f45dd84ec9bc9dcedde63~mv2.webp",
+        "img2": "https://static.wixstatic.com/media/3c76e2_dde6882210a84157a7610c9f02ef0573~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_dde6882210a84157a7610c9f02ef0573~mv2.webp",
+        "price": "7"
+    },
+    {
+        "name": "mochila",
+        "img1": "https://static.wixstatic.com/media/3c76e2_d494d08708f0431fb862a280c4ee3935~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_d494d08708f0431fb862a280c4ee3935~mv2.webp",
+        "img2": "https://static.wixstatic.com/media/3c76e2_a5cfebe621ab4133bc3e8c313bdbbd5c~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_a5cfebe621ab4133bc3e8c313bdbbd5c~mv2.webp",
+        "price": "40"
+    },
+    {
+        "name": "sapato",
+        "img1": "https://static.wixstatic.com/media/3c76e2_00ba7d40897b4f98b006b256fb7ffca0~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_00ba7d40897b4f98b006b256fb7ffca0~mv2.webp",
+        "img2": "https://static.wixstatic.com/media/3c76e2_f55abc1b53484064bbfd4a12ca7d92a0~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_f55abc1b53484064bbfd4a12ca7d92a0~mv2.webp",
+        "price": "85"
+    },
+    {
+        "name": "secador",
+        "img1": "https://static.wixstatic.com/media/3c76e2_03506c3f2bfc45f3b7f7dc24d6f89519~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_03506c3f2bfc45f3b7f7dc24d6f89519~mv2.webp",
+        "img2": "https://static.wixstatic.com/media/3c76e2_27cba7c9d61e41638bde5769869e61a2~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_27cba7c9d61e41638bde5769869e61a2~mv2.webp",
+        "price": "40"
+    },
+    {
+        "name": "brilho-labial",
+        "img1": "https://static.wixstatic.com/media/3c76e2_d562073ad7664802af1eba3b1ee04319~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_d562073ad7664802af1eba3b1ee04319~mv2.webp",
+        "img2": "https://static.wixstatic.com/media/3c76e2_e8498de77aaf451fbc79a0206b4e30c0~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_e8498de77aaf451fbc79a0206b4e30c0~mv2.webp",
+        "price": "15"
+    },
+    {
+        "name": "sutia",
+        "img1": "https://static.wixstatic.com/media/3c76e2_353bb5a3f3c1477dbb738c915538ccc4~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_353bb5a3f3c1477dbb738c915538ccc4~mv2.webp",
+        "img2": "https://static.wixstatic.com/media/3c76e2_1472f3e926b246c9b72287ba37d441f2~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_1472f3e926b246c9b72287ba37d441f2~mv2.webp",
+        "price": "45"
+    },
+    {
+        "name": "gravata",
+        "img1": "https://static.wixstatic.com/media/3c76e2_a8b6824436a440cf8efdac5a04f2198b~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_a8b6824436a440cf8efdac5a04f2198b~mv2.webp",
+        "img2": "https://static.wixstatic.com/media/3c76e2_46585c7ac5ee4a3a863358a74acaf444~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_46585c7ac5ee4a3a863358a74acaf444~mv2.webp",
+        "price": "95"
+    },
+    {
+        "name": "maio",
+        "img1": "https://static.wixstatic.com/media/3c76e2_e27562bc6b104ce384f64131930783cd~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_e27562bc6b104ce384f64131930783cd~mv2.webp",
+        "img2": "https://static.wixstatic.com/media/3c76e2_e0a383b54c6a44c9ab9930a22ec33f07~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01/3c76e2_e0a383b54c6a44c9ab9930a22ec33f07~mv2.webp",
+        "price": "120"
     }
-
 ]
