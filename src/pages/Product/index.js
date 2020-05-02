@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -12,7 +12,6 @@ import products from './products.json'
 export default function Product() {
 
     const { name } = useParams();
-    const [clicks, setClicks] = useState(0);
     const [selected, setSelected] = useState(1);
     const [product, setProduct] = useState();
 
@@ -53,10 +52,10 @@ export default function Product() {
         <Content>
             <div style={{maxWidth: '50%', minWidth: '800px'}}>
                 { product && <>
-                    <img src={product['img'+selected]} style={{width: '100%'}}/>
+                    <img src={product['img'+selected]} style={{width: '100%'}} alt='Imagem 1'/>
                     <div style={{display: 'flex', justifyContent: 'center'}}>
-                        <img src={product['img1']} style={styles.subImage(1)} onClick={()=>setSelected(1)}/>
-                        <img src={product['img2']} style={styles.subImage(2)} onClick={()=>setSelected(2)}/>
+                        <img src={product['img1']} style={styles.subImage(1)} onClick={()=>setSelected(1)} alt='seleciona imagem 1'/>
+                        <img src={product['img2']} style={styles.subImage(2)} onClick={()=>setSelected(2)} alt='seleciona imagem 2'/>
                     </div>
                 </>}
 

@@ -60,7 +60,7 @@ function Image({product, wRef}) {
     
     useEffect(() => {
         setWidth(wRef.current.offsetWidth);
-    }, [wRef.current])
+    }, [wRef])
 
     return (<>
     {width &&
@@ -72,7 +72,8 @@ function Image({product, wRef}) {
             }} 
             src={image} 
             onMouseEnter={()=>setImage(product.img2)} 
-            onMouseLeave={()=>setImage(product.img1)} 
+            onMouseLeave={()=>setImage(product.img1)}
+            alt={`product ${product.name}`}
         />
     }
     </>);

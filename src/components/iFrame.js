@@ -39,7 +39,7 @@ function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path='', frame
             }catch {}
         }
 
-    }, [path, listener, onClick, onKeyPress, insideRef]);
+    }, [path, listener, onClick, onKeyPress, insideRef, myMouse]);
 
     return (
         <div style={{width: '100vw', height: '100vh'}}>

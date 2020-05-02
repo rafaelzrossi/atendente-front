@@ -106,8 +106,8 @@ export default function VirtualSeller() {
 
         _socket.on('mouseClick', ({x, y}) =>{
             // const {x, y} = mouseRef.current.getPosition();
-            const elements = client_ref.current.elementsFromPoint(x+1, y+1);
-            const element = elements[3]
+            const elements = client_ref.current.elementsFromPoint(x, y);
+            const element = elements[1]
             // console.log(elements, element, 2);
             if(element)
                 element.click();
