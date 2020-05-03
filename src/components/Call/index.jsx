@@ -11,7 +11,7 @@ export default function Call() {
         if(page){
             page.close();
         }
-        const myWindow = window.open("https://77173fa1.ngrok.io/", "", "width=530,height=243");
+        const myWindow = window.open("https://atendentechamada.herokuapp.com/", "", "width=530,height=243");
         setPage(myWindow);
     }
 
@@ -33,13 +33,14 @@ export default function Call() {
                 height: '45px',
                 borderRadius: '50%',
                 backgroundColor: '#ed125f',
-                color: '#F0F0F0',
+                color: '#FFF',
                 display: 'flex',
                 justifyContent:'center',
                 alignItems:'center',
                 padding: '7px',
                 boxSizing: 'border-box',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                overflow: 'hidden'
             }}
             onClick={popUp}
         

@@ -7,7 +7,6 @@ import Mouse from '../../components/VirtualMouse';
 import KeepMousePosition from '../../components/KeepMousePosition';
 import Blink from './Blink';
 import debounce from '../../utils/debounce';
-import { isElementOfType } from 'react-dom/test-utils';
 
 export default function VirtualSeller() {
     const [socket, setSocket] = useState(undefined);
@@ -112,6 +111,7 @@ export default function VirtualSeller() {
         _socket.on('mouseClick', ({x, y}) =>{
             // const {x, y} = mouseRef.current.getPosition();
             const elements = client_ref.current.elementsFromPoint(x, y);
+            if(elements.length === 0) return;
             let desc;
             if(elements[0].id === 'virtualMouse'){
                 desc = 1;
@@ -127,7 +127,6 @@ export default function VirtualSeller() {
             }
         })
         _socket.on('setPath', (path) =>{
-            //console.log(path);
             if(path){
                 const _path = new URL(path, process.env.REACT_APP_URL);
                 _path.searchParams.set('isClient', 'false')
@@ -163,13 +162,40 @@ export default function VirtualSeller() {
             </>
             :
             <div>
-                <h1>Clients</h1>
-                {clients.map((c, k) => 
-                    <span key={k} onClick={() => attach(c.id)} style={{display: 'block', cursor: 'pointer'}}>
-                        {c.name}
-                    </span>
-                )}
+                <div style={{width: 530, height: 243, margin: '0 auto'}}>
+                    <iframe src='https://atendentechamada.herokuapp.com/dashboard' title="myFrame" width='100%' height='100%' frameBorder='0'/>
+                </div>
+                {clients.length > 0 ?
+                    <>
+                        <h1 style={styles.title}>Clientes Esperando por Atendimento virtual</h1>
+                        {clients.map((c, k) => 
+                            <span
+                                key={k}
+                                onClick={() => attach(c.id)}
+                                style={{
+                                    display: 'block',
+                                    cursor: 'pointer',
+                                    textAlign: 'center',
+                                    padding: '10px 0',
+                                    backgroundColor: '#F0F0F0',
+                                    marginBottom: '10px'
+                                }}
+                            >
+                                {c.name}
+                            </span>
+                        )}
+                    </>
+                    :
+                    <h1 style={styles.title}>Nenhum cliente esperando</h1>
+                }
+
             </div>
         }
     </>)
+}
+
+const styles={
+    title: {
+        textAlign: 'center',
+    }
 }

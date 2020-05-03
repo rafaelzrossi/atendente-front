@@ -23,6 +23,7 @@ export default function Client() {
     const myMouseRef = useRef();
     // const name = useRef();
     const location = useRef();
+    const socket_global = useRef();
 
 
     function useQuery() {
@@ -57,17 +58,15 @@ export default function Client() {
     useEffect(() => {
         
         if(typeof location.current === 'function'){
+            console.log(pathname)
             location.current(pathname);
         }
         
     }, [pathname])
 
     useEffect(() => {
-        
         const keep_name = name;
-        let keep_socket = undefined; 
         if(isClient && keep_name){
-
             const socket = socketio(process.env.REACT_APP_API_URL.replace(/^http/, 'ws'), {
                 query: {
                     // pathname,
@@ -75,7 +74,7 @@ export default function Client() {
                     name: keep_name
                 }
             });
-            keep_socket = socket;
+            socket_global.current = socket;
 
             socket.on('connected', id => {
                 // console.log('My id: ', id);
@@ -84,7 +83,7 @@ export default function Client() {
             socket.on('attach', target => {
                 console.log('attached', target);
                 
-                socket.emit('setPath', {target, pathname});
+                socket.emit('setPath', {target, pathname: window.location.pathname});
                 location.current = (path) => {
                     socket.emit('setPath', {target, pathname: path});
                 };
@@ -93,11 +92,6 @@ export default function Client() {
                 // document.body.addEventListener('resize', event => console.log(event))
                 window.onresize = () => {
                     socket.emit('setWindow', {target, width: window.innerWidth, height: window.innerHeight});
-                };
-
-                socket.emit('setPath', {target, pathname});
-                location.current = (path) => {
-                    socket.emit('setPath', {target, pathname: path});
                 };
     
                 setUseMouse(true);
@@ -132,6 +126,7 @@ export default function Client() {
                 socket.on('mouseClick', ({x, y}) => {
                     // const {x, y} = mouseRef.current.getPosition();
                     const elements = document.elementsFromPoint(x, y);
+                    if(elements.length === 0) return;
                     let desc;
                     if(elements[0].id === 'virtualMouse'){
                         desc = 1;
@@ -164,15 +159,18 @@ export default function Client() {
             });
 
         }
-   
-        // return () => {
-        //     if(keep_socket && !keep_name){
-        //         keep_socket.disconnect()
-        //     }
+        // else if(!keep_name && socket_global.current){
+        //     // console.log('disconnect')
+        //     socket_global.current.disconnect();
         // }
+   
+        return () => {
+            if(socket_global.current){
+                socket_global.current.disconnect();
+            }
+        }
 
-    // eslint-disable-next-line
-    }, [name]);
+    }, [name, isClient]);
 
     return (
         <>
