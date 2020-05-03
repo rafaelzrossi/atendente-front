@@ -5,6 +5,7 @@ import socketio from 'socket.io-client';
 import IFrame from '../../components/iFrame';
 import Mouse from '../../components/VirtualMouse';
 import KeepMousePosition from '../../components/KeepMousePosition';
+import ReceiveCall from '../../components/ReceiveCall';
 import Blink from './Blink';
 import debounce from '../../utils/debounce';
 
@@ -162,9 +163,10 @@ export default function VirtualSeller() {
             </>
             :
             <div>
-                <div style={{width: 530, height: 243, margin: '0 auto'}}>
+                {/* <div style={{width: 530, height: 243, margin: '0 auto'}}>
                     <iframe src='https://atendentechamada.herokuapp.com/dashboard' allow="microphone" title="myFrame" width='100%' height='100%' frameBorder='0'/>
-                </div>
+                </div> */}
+                <ReceiveCall />
                 {clients.length > 0 ?
                     <>
                         <h1 style={styles.title}>Clientes Esperando por Atendimento virtual</h1>
