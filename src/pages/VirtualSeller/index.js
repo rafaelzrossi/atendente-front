@@ -108,7 +108,9 @@ export default function VirtualSeller() {
             // const {x, y} = mouseRef.current.getPosition();
             const elements = client_ref.current.elementsFromPoint(x, y);
             const element = elements[1]
-            // console.log(elements);
+            console.log('click coordenadas', {x, y});
+            console.log('click no elemento', element);
+            console.log('click nos elementos', elements);
             if(element){
                 // element.click();
                 element.dispatchEvent(new MouseEvent('click', {bubbles: true}))

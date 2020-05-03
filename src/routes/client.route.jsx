@@ -132,8 +132,11 @@ export default function Client() {
                 socket.on('mouseClick', ({x, y}) => {
                     // const {x, y} = mouseRef.current.getPosition();
                     const elements = document.elementsFromPoint(x, y);
-                    // console.log(elements)
                     const element = elements[1];
+                    // console.log(elements)
+                    console.log('click coordenadas', {x, y});
+                    console.log('click no elemento', element);
+                    console.log('click nos elementos', elements);
                     if(element){
                         // element.click();
                         element.dispatchEvent(new MouseEvent('click', {bubbles: true}))
