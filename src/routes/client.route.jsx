@@ -132,14 +132,18 @@ export default function Client() {
                 socket.on('mouseClick', ({x, y}) => {
                     // const {x, y} = mouseRef.current.getPosition();
                     const elements = document.elementsFromPoint(x, y);
-                    const element = elements[1];
-                    // console.log(elements)
-                    console.log('click coordenadas', {x, y});
-                    console.log('click no elemento', element);
-                    console.log('click nos elementos', elements);
+                    let desc;
+                    if(elements[0].id === 'virtualMouse'){
+                        desc = 1;
+                    }else{
+                        desc = 3;
+                    }
+                    const element = elements[desc];
+                    // console.log('click coordenadas', {x, y});
+                    // console.log('click no elemento', element);
+                    // console.log('click nos elementos', elements);
                     if(element){
-                        // element.click();
-                        element.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+                        element.click();
                     }
                 });
         
@@ -161,11 +165,11 @@ export default function Client() {
 
         }
    
-        return () => {
-            if(keep_socket){
-                keep_socket.disconnect()
-            }
-        }
+        // return () => {
+        //     if(keep_socket && !keep_name){
+        //         keep_socket.disconnect()
+        //     }
+        // }
 
     // eslint-disable-next-line
     }, [name]);

@@ -7,6 +7,7 @@ import Mouse from '../../components/VirtualMouse';
 import KeepMousePosition from '../../components/KeepMousePosition';
 import Blink from './Blink';
 import debounce from '../../utils/debounce';
+import { isElementOfType } from 'react-dom/test-utils';
 
 export default function VirtualSeller() {
     const [socket, setSocket] = useState(undefined);
@@ -73,6 +74,10 @@ export default function VirtualSeller() {
     }
 
     useEffect(() => {
+        console.log(target)
+    }, [target])
+
+    useEffect(() => {
 
         const _socket = socketio(process.env.REACT_APP_API_URL.replace(/^http/, 'ws'), {query: {type: 'Vendendor'}});
 
@@ -107,13 +112,18 @@ export default function VirtualSeller() {
         _socket.on('mouseClick', ({x, y}) =>{
             // const {x, y} = mouseRef.current.getPosition();
             const elements = client_ref.current.elementsFromPoint(x, y);
-            const element = elements[1]
-            console.log('click coordenadas', {x, y});
-            console.log('click no elemento', element);
-            console.log('click nos elementos', elements);
+            let desc;
+            if(elements[0].id === 'virtualMouse'){
+                desc = 1;
+            }else{
+                desc = 3;
+            }
+            const element = elements[desc];
+            // console.log('click coordenadas', {x, y});
+            // console.log('click no elemento', element);
+            // console.log('click nos elementos', elements);
             if(element){
-                // element.click();
-                element.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+                element.click();
             }
         })
         _socket.on('setPath', (path) =>{

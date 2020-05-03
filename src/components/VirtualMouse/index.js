@@ -44,7 +44,7 @@ const Mouse = forwardRef((props, ref) => {
                     padding: 0,
                     }} 
                 viewBox='0 4 20 20'
-
+                id='virtualMouseSVG'
             />
         </div>
     </>)
