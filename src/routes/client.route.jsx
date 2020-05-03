@@ -1,10 +1,11 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState, useCallback} from 'react';
 import { useLocation, BrowserRouter, Switch, Route } from 'react-router-dom';
 import socketio from 'socket.io-client';
 
 import Mouse from '../components/VirtualMouse';
 import KeepMousePosition from '../components/KeepMousePosition';
 import Call from '../components/Call';
+import Login from '../components/Login';
 
 import Product from '../pages/Product';
 import Shop from '../pages/Shop';
@@ -16,11 +17,13 @@ export default function Client() {
     const isClient = useQuery().get('isClient') !== 'false';
     
     const [useMouse, setUseMouse] = useState(false);
+    const [name, setName] = useState(undefined);
 
     const mouseRef = useRef();
     const myMouseRef = useRef();
-    const name = useRef();
+    // const name = useRef();
     const location = useRef();
+
 
     function useQuery() {
         return new URLSearchParams(useLocation().search);
@@ -44,6 +47,13 @@ export default function Client() {
         myMouseRef.current.setPosition(coordinates);
     }
 
+    const nameChange = useCallback(
+        (name) => {
+            setName(name);
+        },
+        [setName],
+    )
+
     useEffect(() => {
         
         if(typeof location.current === 'function'){
@@ -54,23 +64,19 @@ export default function Client() {
 
     useEffect(() => {
         
-        
-        if(isClient){
-
-            while (!name.current) {
-                try{
-                    name.current = prompt("Digite seu nome aqui:");
-                }catch {}
-            }
+        const keep_name = name;
+        let keep_socket = undefined; 
+        if(isClient && keep_name){
 
             const socket = socketio(process.env.REACT_APP_API_URL.replace(/^http/, 'ws'), {
                 query: {
                     // pathname,
                     type: 'client',
-                    name: name.current
+                    name: keep_name
                 }
             });
-    
+            keep_socket = socket;
+
             socket.on('connected', id => {
                 // console.log('My id: ', id);
             });
@@ -152,12 +158,22 @@ export default function Client() {
 
         }
    
+        return () => {
+            if(keep_socket){
+                keep_socket.disconnect()
+            }
+        }
+
     // eslint-disable-next-line
-    }, []);
+    }, [name]);
 
     return (
         <>
-            <Call />
+            
+            { isClient && <> 
+                <Call />
+                <Login onChange={nameChange} />
+            </>}
             <KeepMousePosition ref={myMouseRef} />
             <div id='mouseContainer'>
             {useMouse && <Mouse ref={mouseRef}/>}
