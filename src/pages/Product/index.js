@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Content from '../../components/Content';
+import Input from '../../components/InputNumber';
 
 import section from '../../styles/layout/Section';
 
@@ -46,6 +47,10 @@ export default function Product() {
         })
     }, [name]);
 
+    useEffect(() => {
+        window.scrollTo(0,0)
+    }, []);
+
     return (<div style={{overflowX: 'hidden'}}>
         <Header />
 
@@ -82,19 +87,10 @@ export default function Product() {
                         {product && <h1 style={section.price}>R$ {product.price},00</h1>}
                         <div style={{marginTop: '30px', display: 'flex', flexDirection:'column'}}>
                             <label style={{marginBottom: '12px'}}>Quantidade</label>
-                            <input
-                                type="number"
+                            <Input
                                 step='1'
                                 min='1'
                                 defaultValue='1'
-                                style={{
-                                    border: '1px solid #DDD',
-                                    height: '40px',
-                                    fontSize: '18px',
-                                    fontWeight: 'lighter',
-                                    color: '#555',
-                                    width: '75px',
-                                }}
                             />
                             <button
                                 style={{

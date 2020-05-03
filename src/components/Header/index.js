@@ -7,7 +7,7 @@ export default function Header() {
         <h1 style={styles.title}>Meu site.com</h1>
         <div style={styles.nav}>
           <ul style={styles.linksContainer}>
-            <li style={styles.linkItem}><Link style={styles.link} to='/home'>Início</Link></li>
+            {/* <li style={styles.linkItem}><Link style={styles.link} to='/home'>Início</Link></li> */}
             <li style={styles.linkItem}><Link style={styles.link} to='/shop'>Loja</Link></li>
           </ul>
         </div>

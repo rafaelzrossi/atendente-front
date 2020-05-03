@@ -4,7 +4,7 @@ import socketio from 'socket.io-client';
 
 import Mouse from '../components/VirtualMouse';
 import KeepMousePosition from '../components/KeepMousePosition';
-import Login from '../components/Login';
+import Call from '../components/Call';
 
 import Product from '../pages/Product';
 import Shop from '../pages/Shop';
@@ -58,7 +58,9 @@ export default function Client() {
         if(isClient){
 
             while (!name.current) {
-                name.current = prompt("Digite seu nome aqui:");
+                try{
+                    name.current = prompt("Digite seu nome aqui:");
+                }catch {}
             }
 
             const socket = socketio(process.env.REACT_APP_API_URL.replace(/^http/, 'ws'), {
@@ -126,8 +128,10 @@ export default function Client() {
                     const elements = document.elementsFromPoint(x, y);
                     // console.log(elements)
                     const element = elements[1];
-                    if(element)
-                        element.click();
+                    if(element){
+                        // element.click();
+                        element.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+                    }
                 });
         
                 socket.on('keyPress', key => {
@@ -153,7 +157,7 @@ export default function Client() {
 
     return (
         <>
-            <Login />
+            <Call />
             <KeepMousePosition ref={myMouseRef} />
             <div id='mouseContainer'>
             {useMouse && <Mouse ref={mouseRef}/>}

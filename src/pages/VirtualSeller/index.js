@@ -108,9 +108,11 @@ export default function VirtualSeller() {
             // const {x, y} = mouseRef.current.getPosition();
             const elements = client_ref.current.elementsFromPoint(x, y);
             const element = elements[1]
-            // console.log(elements, element, 2);
-            if(element)
-                element.click();
+            // console.log(elements);
+            if(element){
+                // element.click();
+                element.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+            }
         })
         _socket.on('setPath', (path) =>{
             //console.log(path);
