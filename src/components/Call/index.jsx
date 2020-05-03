@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { MdPhoneInTalk } from "react-icons/md";
+
+import Logo from '../../svgs/LogoVTEXPersonal';
+
 
 export default function Call() {
     
@@ -24,17 +28,24 @@ export default function Call() {
         <div
             style={{
                 position: 'fixed',
-                bottom: 0,
-                right: 0,
-                width: '40px',
-                height: '40px',
+                bottom: 10,
+                right: 5,
+                width: '45px',
+                height: '45px',
                 borderRadius: '50%',
-                backgroundColor: '#444'
+                backgroundColor: '#ed125f',
+                color: '#F0F0F0',
+                display: 'flex',
+                justifyContent:'center',
+                alignItems:'center',
+                padding: '7px',
+                boxSizing: 'border-box',
             }}
             onClick={popUp}
         
         >
-            
+            {/* <MdPhoneInTalk /> */}
+            <Logo />
         </div>
     )
 }
