@@ -27,8 +27,8 @@ export default function Login({onChange}) {
             <div
             style={{
                 position: 'fixed',
-                bottom: 65,
-                right: 5,
+                bottom: 30,
+                right: 162,
                 width: 'auto',
                 minWidth: '45px',
                 height: '45px',
@@ -51,8 +51,8 @@ export default function Login({onChange}) {
             <div
                 style={{
                     position: 'fixed',
-                    bottom: 215,
-                    right: 5,
+                    bottom: 30,
+                    right: 162,
                     width: '45px',
                     height: '45px',
                     borderRadius: '50%',
