@@ -51,7 +51,7 @@ export default function Login({onChange}) {
             <div
                 style={{
                     position: 'fixed',
-                    bottom: 65,
+                    bottom: 215,
                     right: 5,
                     width: '45px',
                     height: '45px',

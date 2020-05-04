@@ -194,8 +194,8 @@ export default function Client() {
         <>
             
             { isClient && <> 
-                <Call />
                 <Login onChange={nameChange} />
+                <Call />
                 <FaceBookChat />
                 {/* <div id='chatFacebook'></div> */}
             </>}
