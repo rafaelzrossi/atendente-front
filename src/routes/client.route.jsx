@@ -196,8 +196,8 @@ export default function Client() {
             { isClient && <> 
                 <Call />
                 <Login onChange={nameChange} />
-                {/* <FaceBookChat />
-                <div id='chatFacebook'></div> */}
+                {/* <FaceBookChat /> */}
+                {/* <div id='chatFacebook'></div> */}
             </>}
             <KeepMousePosition ref={myMouseRef} />
             <div id='mouseContainer'>
