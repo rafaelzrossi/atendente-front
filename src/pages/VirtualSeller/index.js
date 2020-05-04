@@ -68,7 +68,7 @@ export default function VirtualSeller() {
 
     const handleClient = (doc=document, win=window) => {
         client_ref.current = doc;
-        window_client_ref.current= win;
+        window_client_ref.current = win;
         ReactDOM.render(<Mouse ref={mouseRef}/>, doc.getElementById('mouseContainer'));
         ReactDOM.render(<Blink ref={blinkRef}/>, doc.getElementById('blinkContainer'));
     }
@@ -111,6 +111,13 @@ export default function VirtualSeller() {
             if(client_ref.current){
                 // const elem = client_ref.current.elementsFromPoint(coord.x, coord.y);
                 mouseRef.current.setPosition(coord);
+                // const {x, y} = coord;
+                // const init = {x: window_client_ref.current.pageXOffset, y: window_client_ref.current.pageYOffset}
+                // const final = {x: window_client_ref.current.innerWidth + init.x, y: window_client_ref.current.innerHeight + init.y}
+                // const isOnPage = (x >= init.x && x <= final.x && y >= init.y && y <= final.y);
+                // if(!isOnPage){
+                //     window_client_ref.current.scrollTo(x-50, y-50);
+                // }
             }
         });
         
@@ -127,7 +134,7 @@ export default function VirtualSeller() {
             // const element = elements[desc];
             const element = client_ref.current.elementFromPoint(x - window_client_ref.current.pageXOffset, y - window_client_ref.current.pageYOffset);
             // console.log('click coordenadas', {x, y});
-            console.log('click no elemento', element);
+            //console.log('click no elemento', element);
             // console.log('click nos elementos', elements);
             if(element){
                 try {

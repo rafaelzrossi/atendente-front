@@ -59,7 +59,7 @@ export default function Client() {
     useEffect(() => {
         
         if(typeof location.current === 'function'){
-            console.log(pathname)
+            //console.log(pathname)
             location.current(pathname);
         }
         
@@ -125,6 +125,13 @@ export default function Client() {
 
                 socket.on('mouseMove', params => {
                     mouseRef.current.setPosition(params);
+                    // const {x, y} = params;
+                    // const init = {x: window.pageXOffset, y: window.pageYOffset}
+                    // const final = {x: window.innerWidth + init.x, y: window.innerHeight + init.y}
+                    // const isOnPage = (x >= init.x && x <= final.x && y >= init.y && y <= final.y);
+                    // if(!isOnPage){
+                    //     window.scrollTo(x-50, y-50);
+                    // }
                 });
         
                 socket.on('mouseClick', ({x, y}) => {
@@ -140,8 +147,8 @@ export default function Client() {
                     // const element = elements[desc];
                     const element = document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
                     // console.log('click coordenadas', {x, y});
-                    console.log('click em ', x, y)
-                    console.log('click no elemento', element);
+                    // console.log('click em ', x, y)
+                    // console.log('click no elemento', element);
                     // console.log('click nos elementos', elements);
                     if(element){
                         try {
