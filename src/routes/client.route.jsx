@@ -129,17 +129,19 @@ export default function Client() {
         
                 socket.on('mouseClick', ({x, y}) => {
                     // const {x, y} = mouseRef.current.getPosition();
-                    const elements = document.elementsFromPoint(x, y);
-                    if(elements.length === 0) return;
-                    let desc;
-                    if(elements[0].id === 'virtualMouse'){
-                        desc = 1;
-                    }else{
-                        desc = 3;
-                    }
-                    const element = elements[desc];
+                    // const elements = document.elementsFromPoint(x, y);
+                    // if(elements.length === 0) return;
+                    // let desc;
+                    // if(elements[0].id === 'virtualMouse'){
+                    //     desc = 1;
+                    // }else{
+                    //     desc = 3;
+                    // }
+                    // const element = elements[desc];
+                    const element = document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset);
                     // console.log('click coordenadas', {x, y});
-                    // console.log('click no elemento', element);
+                    console.log('click em ', x, y)
+                    console.log('click no elemento', element);
                     // console.log('click nos elementos', elements);
                     if(element){
                         try {

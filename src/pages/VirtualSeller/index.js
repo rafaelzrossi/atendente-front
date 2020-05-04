@@ -18,6 +18,7 @@ export default function VirtualSeller() {
     const [frameSize, setFrameSize] = useState();
 
     const client_ref = useRef();
+    const window_client_ref = useRef();
     const mouseRef = useRef();
     const blinkRef = useRef();
     const myMouseRef = useRef();
@@ -65,8 +66,9 @@ export default function VirtualSeller() {
         }
     }
 
-    const handleClient = (doc=document) => {
+    const handleClient = (doc=document, win=window) => {
         client_ref.current = doc;
+        window_client_ref.current= win;
         ReactDOM.render(<Mouse ref={mouseRef}/>, doc.getElementById('mouseContainer'));
         ReactDOM.render(<Blink ref={blinkRef}/>, doc.getElementById('blinkContainer'));
     }
@@ -114,17 +116,18 @@ export default function VirtualSeller() {
         
         _socket.on('mouseClick', ({x, y}) =>{
             // const {x, y} = mouseRef.current.getPosition();
-            const elements = client_ref.current.elementsFromPoint(x, y);
-            if(elements.length === 0) return;
-            let desc;
-            if(elements[0].id === 'virtualMouse'){
-                desc = 1;
-            }else{
-                desc = 3;
-            }
-            const element = elements[desc];
+            // const elements = client_ref.current.elementsFromPoint(x, y);
+            // if(elements.length === 0) return;
+            // let desc;
+            // if(elements[0].id === 'virtualMouse'){
+            //     desc = 1;
+            // }else{
+            //     desc = 3;
+            // }
+            // const element = elements[desc];
+            const element = client_ref.current.elementFromPoint(x - window_client_ref.current.pageXOffset, y - window_client_ref.current.pageYOffset);
             // console.log('click coordenadas', {x, y});
-            // console.log('click no elemento', element);
+            console.log('click no elemento', element);
             // console.log('click nos elementos', elements);
             if(element){
                 try {

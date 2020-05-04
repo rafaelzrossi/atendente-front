@@ -33,6 +33,7 @@ const Mouse = forwardRef((props, ref) => {
                 left: position.x, 
                 top: position.y, 
                 backgroundColor: 'none',
+                pointerEvents: 'none'
             }
         }>
             <MdNearMe 
@@ -42,6 +43,7 @@ const Mouse = forwardRef((props, ref) => {
                     fontSize: '25px',
                     transform: 'rotate(-90deg)', 
                     padding: 0,
+                    pointerEvents: 'none'
                     }} 
                 viewBox='0 4 20 20'
                 id='virtualMouseSVG'

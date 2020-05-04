@@ -48,7 +48,9 @@ export default function Product() {
     }, [name]);
 
     useEffect(() => {
-        window.scrollTo(0,0)
+        setTimeout(() => {
+            window.scrollTo(0,0)
+        }, 500);
     }, []);
 
     return (<div style={{overflowX: 'hidden'}}>

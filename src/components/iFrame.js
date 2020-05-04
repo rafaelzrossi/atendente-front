@@ -22,7 +22,7 @@ function IFrame({listener, onKeyPress, onClick, insideRef=()=>{}, path='', frame
                 ref.contentWindow.document.body.addEventListener('click', keep_onClick, false);
                 ref.contentWindow.document.body.addEventListener('keypress', keep_onKeyPress, false);
 
-                insideRef(ref.contentWindow.document);
+                insideRef(ref.contentWindow.document, ref.contentWindow);
 
             }catch{
                 

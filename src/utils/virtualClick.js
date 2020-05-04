@@ -15,6 +15,7 @@ export default function click ({x, y}){
         try {
             element.click();
         } catch {
+            alert('Erro Click')
             element.dispatchEvent(new MouseEvent('click', {bubbles: true}))
         }
     }
