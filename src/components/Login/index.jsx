@@ -16,8 +16,10 @@ export default function Login({onChange}) {
        }
     }
 
-    function disable() {
-        setName(undefined);
+    function disable(event) {
+        // console.log(event.isTrusted);
+        if(event.isTrusted)
+            setName(undefined);
     }
 
     return (<>
@@ -43,7 +45,7 @@ export default function Login({onChange}) {
             onClick={disable}
         
         >
-            {name}<MdClose />
+            Fechar Sessão <MdClose />
         </div>
             :
             <div

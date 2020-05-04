@@ -11,6 +11,7 @@ import Product from '../pages/Product';
 import Shop from '../pages/Shop';
 
 import debounce from '../utils/debounce';
+import virtualClick from '../utils/virtualClick';
 
 export default function Client() {
     const { pathname } = useLocation();
@@ -100,8 +101,11 @@ export default function Client() {
                 document.body.addEventListener('mousemove', mouseMove);
                 document.body.addEventListener('mousemove', myMouse);
                 document.body.onclick = (event) => {
-                    if(event.isTrusted)
-                        socket.emit('mouseClick', {target, coordinates: myMouseRef.current.getPosition()});
+                    if(event.isTrusted){
+                        const coordinates = myMouseRef.current.getPosition();
+                        socket.emit('mouseClick', {target, coordinates});
+                        // console.log(coordinates);
+                    }
                 };
                 
                 const keepAlive = debounce(()=>{
@@ -138,7 +142,11 @@ export default function Client() {
                     // console.log('click no elemento', element);
                     // console.log('click nos elementos', elements);
                     if(element){
-                        element.click();
+                        try {
+                            element.click();
+                        } catch {
+                            element.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+                        }
                     }
                 });
         

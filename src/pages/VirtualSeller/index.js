@@ -8,6 +8,7 @@ import KeepMousePosition from '../../components/KeepMousePosition';
 import ReceiveCall from '../../components/ReceiveCall';
 import Blink from './Blink';
 import debounce from '../../utils/debounce';
+import virtualClick from '../../utils/virtualClick';
 
 export default function VirtualSeller() {
     const [socket, setSocket] = useState(undefined);
@@ -45,7 +46,9 @@ export default function VirtualSeller() {
 
     function handleMouseClick(event) {
         if(socket && event.isTrusted){
-            socket.emit('mouseClick', {target, coordinates: myMouseRef.current.getPosition()});
+            const coordinates = myMouseRef.current.getPosition();
+            socket.emit('mouseClick', {target, coordinates});
+            // console.log('click ', coordinates);
         }
     }
  
@@ -108,7 +111,7 @@ export default function VirtualSeller() {
                 mouseRef.current.setPosition(coord);
             }
         });
-
+        
         _socket.on('mouseClick', ({x, y}) =>{
             // const {x, y} = mouseRef.current.getPosition();
             const elements = client_ref.current.elementsFromPoint(x, y);
@@ -124,9 +127,14 @@ export default function VirtualSeller() {
             // console.log('click no elemento', element);
             // console.log('click nos elementos', elements);
             if(element){
-                element.click();
+                try {
+                    element.click();
+                } catch {
+                    element.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+                }   
             }
         })
+
         _socket.on('setPath', (path) =>{
             if(path){
                 const _path = new URL(path, process.env.REACT_APP_URL);

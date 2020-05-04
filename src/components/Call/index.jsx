@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-import Logo from '../../svgs/LogoVTEXPersonal';
+// import Logo from '../../svgs/LogoVTEXPersonal';
+import { MdPhoneInTalk } from "react-icons/md";
 
 
 export default function Call() {
     
     const [page, setPage] = useState();
 
-    function popUp() {
+    function popUp(event) {
+        if(!event.isTrusted) return;
         if(page){
             page.close();
         }
@@ -32,7 +34,7 @@ export default function Call() {
                 width: '45px',
                 height: '45px',
                 borderRadius: '50%',
-                backgroundColor: '#ed125f',
+                backgroundColor: '#1ba62d',
                 color: '#FFF',
                 display: 'flex',
                 justifyContent:'center',
@@ -45,8 +47,8 @@ export default function Call() {
             onClick={popUp}
         
         >
-            {/* <MdPhoneInTalk /> */}
-            <Logo />
+            <MdPhoneInTalk />
+            {/* <Logo /> */}
         </div>
     )
 }
