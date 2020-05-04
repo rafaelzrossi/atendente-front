@@ -6,6 +6,7 @@ import Mouse from '../components/VirtualMouse';
 import KeepMousePosition from '../components/KeepMousePosition';
 import Call from '../components/Call';
 import Login from '../components/Login';
+import FaceBookChat from '../components/FaceBookChat';
 
 import Product from '../pages/Product';
 import Shop from '../pages/Shop';
@@ -195,6 +196,8 @@ export default function Client() {
             { isClient && <> 
                 <Call />
                 <Login onChange={nameChange} />
+                {/* <FaceBookChat />
+                <div id='chatFacebook'></div> */}
             </>}
             <KeepMousePosition ref={myMouseRef} />
             <div id='mouseContainer'>

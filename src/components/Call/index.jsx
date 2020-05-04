@@ -29,7 +29,7 @@ export default function Call() {
         <div
             style={{
                 position: 'fixed',
-                bottom: 10,
+                bottom: 120,
                 right: 5,
                 width: '45px',
                 height: '45px',
