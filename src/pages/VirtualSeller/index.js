@@ -132,17 +132,29 @@ export default function VirtualSeller() {
             //     desc = 3;
             // }
             // const element = elements[desc];
-            const element = client_ref.current.elementFromPoint(x - window_client_ref.current.pageXOffset, y - window_client_ref.current.pageYOffset);
-            // console.log('click coordenadas', {x, y});
-            //console.log('click no elemento', element);
-            // console.log('click nos elementos', elements);
-            if(element){
-                try {
-                    element.click();
-                } catch {
-                    element.dispatchEvent(new MouseEvent('click', {bubbles: true}))
-                }   
-            }
+
+            // window_client_ref.current.scrollTo(x-50, y-50);
+
+            const init = {x: window_client_ref.current.pageXOffset, y: window_client_ref.current.pageYOffset}
+            const final = {x: window_client_ref.current.innerWidth + init.x, y: window_client_ref.current.innerHeight + init.y}
+            const isOnPage = (x >= init.x && x <= final.x && y >= init.y && y <= final.y);
+
+            if(!isOnPage)
+                window_client_ref.current.scrollTo(x-50, y-50);
+
+            setTimeout(() => {
+                const element = client_ref.current.elementFromPoint(x - window_client_ref.current.pageXOffset, y - window_client_ref.current.pageYOffset);
+                // console.log('click coordenadas', {x, y});
+                //console.log('click no elemento', element);
+                // console.log('click nos elementos', elements);
+                if(element){
+                    try {
+                        element.click();
+                    } catch {
+                        element.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+                    }   
+                }
+            }, isOnPage? 0 : 500);
         })
 
         _socket.on('setPath', (path) =>{
